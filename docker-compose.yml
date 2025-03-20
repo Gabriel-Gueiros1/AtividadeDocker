@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: ./
+    command: "npm start"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    networks:
+      - Myconnection
+
+  mysql:
+    image: mysql:latest
+    container_name: docker_base
+    environment:
+      MYSQL_ROOT_PASSWORD: new_password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - Myconnection
+
+networks:
+  Myconnection:
+
+volumes:
+  mysql_data:
